@@ -1,0 +1,110 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-image: url(marketbg.jpg);
+}
+.container{
+    width: 100%;
+    
+}
+#fundnav{
+    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+}
+#name{
+    font-weight: bolder;
+    padding: 10px;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-left: 90px;
+    color: white;
+
+}
+#navigate1{
+    font-weight: bolder;
+    padding: 10px;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-left: 90px;
+    color: black;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 18px;
+
+}
+#navigate2{
+    margin-top: 30px;
+    margin-left: 45px;
+
+    
+}
+#navigate2 img{
+    height: 40pt;
+    width: 40pt;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 45px;
+}
+
+#moneyline{
+    text-align: center;
+    background-image: url(handsbg.png);
+    padding-bottom: 58px;
+    
+}
+#money{
+    
+    margin-left: 50px;
+    background-color: rgb(255, 255, 255, 80%);
+    box-shadow:10px 10px 20px;
+    
+}
+#money img{
+    box-shadow:10px 10px 20px;
+}
+#donate{
+    color: white;
+    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+    font-size: 16pt;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+#tag{
+    margin-top: 120px;
+    margin-left: 50px;
+    background-color: rgb(255, 255, 255, 80%);
+    box-shadow:10px 10px 20px;
+    
+}
+#happen{
+    font-family: alegreya;
+
+    font-size: 50pt;
+    font-weight: bolder;
+    
+}
+#strong{
+    font-family: glacial indifference;
+    font-weight: 400;
+    font-size: 30pt;
+}
+
+.card{
+    display: inline-block;
+    margin: 20px 25px 5px 20px;
+    
+
+}
+#fundraise{
+    margin-left: 145px;
+    height: 400px;
+    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+    font-size: 20px;
+    color: whitesmoke;
+    
+}
+
+#about{
+    background-color: white;
+    text-align: center;
+}

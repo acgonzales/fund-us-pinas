@@ -1,0 +1,210 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    width: 100%;
+    
+}
+#fundnav{
+    
+    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+}
+#funduspinaslogo{
+    margin-left: 70px;
+}
+#name{
+    font-weight: bolder;
+    padding: 10px;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-left: 20px;
+    color: white;
+
+}
+#navigate1{
+    font-weight: bolder;
+    padding: 10px;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-left: 10px;
+    color: black;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 18px;
+
+}
+#navigate4{
+    font-weight: bolder;
+    padding: 10px;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-left: 50px;
+    color: black;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 18px;
+
+}
+#navigate2{
+    margin-top: 30px;
+    margin-left: 10px;
+
+    
+}
+#navigate2 img{
+    height: 40pt;
+    width: 40pt;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 45px;
+}
+
+#userimage2{
+    width: 80px;
+    border-radius: 50px;
+    margin-right: 5px;
+}
+#userimage3{
+    width: 55px;
+    border-radius: 50px;
+    margin-right: 5px;
+}
+#moneyline{
+    text-align: center;
+
+    padding-bottom: 58px;
+    background-color: aliceblue;
+    
+}
+#money{
+    margin-left: 50px;
+    margin-top: 30px;
+    width: 20%;
+    background-color: rgb(255, 255, 255, 80%);
+    box-shadow:10px 10px 20px;
+    
+}
+#logos2{
+    width: 15%;
+}
+
+#donate{
+    color: white;
+    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+    font-size: 16pt;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+#tag{
+    margin-top: 120px;
+    margin-left: 250px;
+    width: 50%;
+    background-color: rgb(255, 255, 255, 80%);
+    box-shadow:10px 10px 20px;
+    
+}
+#tag2{
+    margin-top: 100px;
+    margin-left: 200px;
+    width: 40%;
+    background-color: rgb(255, 255, 255, 80%);
+    box-shadow:10px 10px 20px;
+    
+}
+#happen{
+    font-family: alegreya;
+
+    font-size: 50pt;
+    font-weight: bolder;
+    
+}
+#happen2{
+    font-family: alegreya;
+
+    font-size: 28pt;
+    font-weight: bolder;
+    
+}
+#strong{
+    font-family: glacial indifference;
+    font-weight: 400;
+    font-size: 30pt;
+}
+
+.card{
+    display: inline-block;
+    margin: 20px 25px 5px 20px;
+    
+
+}
+
+#fundraisercards{
+    margin: auto;
+    width: 50%;
+
+}
+
+#fundraise{
+    padding: 10px;
+    
+    height: 350px;
+    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+    font-size: 16px;
+    color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#logos{
+    width: 100%;
+    border-radius: 20pt;
+}
+
+#fundusabout{
+    padding: 40px;
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14pt;
+   
+}
+#fundusabout h1{
+    text-align: center;
+    
+}
+#about{
+    width: 80%;
+    margin: auto;
+}
+
+#lingapbaste{
+    background-color: aliceblue;
+    
+}
+.baste{
+    
+    width: 70%;
+    margin: auto;
+}
+#bastedetails{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 50px auto auto auto;
+    width: 45%;
+    
+
+}
+#bastedetails span{
+    font-size: 30pt;
+}
+#bastedetails p{
+    font-size: 14pt;
+    
+}
+#bastepic{
+    width: 54%;
+    margin: auto;
+    padding: 60px 0 100px 50px;
+
+}
+#bastepic img{
+    width: 500pt;
+}

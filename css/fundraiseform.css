@@ -1,0 +1,53 @@
+#registration{
+    margin-top: 100px;
+    text-align: center;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 90px;
+    font-family: arial;
+    background-color: rgb(255, 253, 254);
+
+}
+
+#registration p{
+    margin-left: 13px;
+    font-family: DM Sans;
+    font-size: 10pt;
+    color: #888;
+}
+
+#registration h1{
+    text-align: center;
+}
+#registration a{
+    font-size: 12pt;
+}
+#text{
+    border-radius: 26px;
+    font-size: 10pt;
+    padding: 14px;
+    width: 350px;
+    border: 1px solid rgb(126, 126, 126);
+    background-color: rgb(228, 216, 216);
+}
+#button{
+    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    width: 150px;
+    height: 50px;
+    border-radius: 26px;
+    border: none;
+    color: white;
+    
+}
+#posttext{
+    width: 92%;
+    border: 2px solid black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 16pt;
+    padding: 20px;
+    height: 200px;
+
+}

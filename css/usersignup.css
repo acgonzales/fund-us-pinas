@@ -1,0 +1,55 @@
+#signupline{
+    margin-top: 100px;
+    text-align: center;
+}
+
+#signup{
+    width: 41%;
+    margin-left: 100px;
+    padding-top: 90px;
+
+    font-family: arial;
+    background-color: rgb(255, 253, 254);
+
+
+}
+#signup p{
+    margin-left: 13px;
+    font-family: DM Sans;
+    font-size: 10pt;
+    color: #888;
+}
+#back{
+    text-align: left;
+    padding-left: 30px;
+}
+#back img{
+    width: 20pt;
+    height: 20pt;
+    margin-right: 10pt;
+}
+#signupline h1{
+    text-align: center;
+}
+#signup a{
+    font-size: 12pt;
+}
+#text{
+    border-radius: 26px;
+    font-size: 10pt;
+    padding: 14px;
+    width: 350px;
+    border: 1px solid rgb(126, 126, 126);
+    background-color: rgb(228, 216, 216);
+}
+#button{
+    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    width: 150px;
+    height: 50px;
+    border-radius: 26px;
+    border: none;
+    color: white;
+    
+}
