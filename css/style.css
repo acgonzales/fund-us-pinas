@@ -8,8 +8,8 @@
     
 }
 #fundnav{
-    
-    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+    background-color: black;
+    /* background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72)); */
 }
 #funduspinaslogo{
     margin-left: 70px;
