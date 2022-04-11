@@ -15,7 +15,7 @@ $fundraisers = $fundraiser->getFundraisers();
 <html>
 
 <head>
-    <title>Guest Landing Page</title>
+    <title>Guest Landing qwe</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/user.css">
