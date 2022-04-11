@@ -70,28 +70,28 @@ class Database
                 `goal_amount` DECIMAL NOT NULL,
                 FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
             );",
-            "CREATE TABLE IF NOT EXISTS `fundraiser_donations` (
-                `fundraiser_donation_id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-                `fundraiser_id` INT UNSIGNED NOT NULL,
-                `user_id` INT UNSIGNED NOT NULL,
-                `is_anonymous` INT UNSIGNED DEFAULT 1,
-                `amount` DECIMAL NOT NULL,
-                `donated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (`fundraiser_id`) REFERENCES `fundraisers` (`fundraiser_id`),
-                FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-            );",
-            "CREATE TABLE IF NOT EXISTS `foundation_donations` (
-                `foundation_donation_id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-                `user_id` INT UNSIGNED NOT NULL,
-                `is_anonymous` INT UNSIGNED DEFAULT 1,
-                `amount` DECIMAL NOT NULL,
-                `donated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-            );",
+            // "CREATE TABLE IF NOT EXISTS `fundraiser_donations` (
+            //     `fundraiser_donation_id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+            //     `fundraiser_id` INT UNSIGNED NOT NULL,
+            //     `user_id` INT UNSIGNED NOT NULL,
+            //     `is_anonymous` INT UNSIGNED DEFAULT 1,
+            //     `amount` DECIMAL NOT NULL,
+            //     `donated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            //     FOREIGN KEY (`fundraiser_id`) REFERENCES `fundraisers` (`fundraiser_id`),
+            //     FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+            // );",
+            // "CREATE TABLE IF NOT EXISTS `foundation_donations` (
+            //     `foundation_donation_id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+            //     `user_id` INT UNSIGNED NOT NULL,
+            //     `is_anonymous` INT UNSIGNED DEFAULT 1,
+            //     `amount` DECIMAL NOT NULL,
+            //     `donated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            //     FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+            // );",
             "CREATE TABLE IF NOT EXISTS `shops` (
                 `shop_id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
                 `user_id` INT UNSIGNED NOT NULL,
-                `is_confirmed` INT UNSIGNED DEFAULT 0,
+                `is_confirmed` INT(1) DEFAULT 0,
                 `name` VARCHAR(255) NOT NULL,
                 `image` TEXT,
                 `description` TEXT NOT NULL,
@@ -101,12 +101,24 @@ class Database
                 `lazada_link` TEXT,
                 FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
             );",
-            "CREATE TABLE IF NOT EXISTS `shop_donations` (
-                `shop_donation_id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-                `shop_id` INT UNSIGNED NOT NULL,
+            // "CREATE TABLE IF NOT EXISTS `shop_donations` (
+            //     `shop_donation_id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+            //     `shop_id` INT UNSIGNED NOT NULL,
+            //     `amount` DECIMAL NOT NULL,
+            //     `donated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            //     FOREIGN KEY (`shop_id`) REFERENCES `shops` (`shop_id`)
+            // );",
+            "CREATE TABLE IF NOT EXISTS `donations` (
+                `donation_id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+                `donatable_id` INT UNSIGNED,
+                `donatable_type` ENUM('Foundation', 'Fundraiser', 'Shop') NOT NULL,
+                `fundraiser_id` INT UNSIGNED,
+                `xendit_id` VARCHAR(255) UNIQUE,
                 `amount` DECIMAL NOT NULL,
+                `is_paid` INT(1) DEFAULT 0,
+                `is_anonymous` INT(1) DEFAULT 1,
                 `donated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (`shop_id`) REFERENCES `shops` (`shop_id`)
+                FOREIGN KEY (`fundraiser_id`) REFERENCES `fundraisers` (`fundraiser_id`)
             );"
         ];
         try {

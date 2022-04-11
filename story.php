@@ -14,6 +14,10 @@ if (empty($_SESSION["fundus_userid"])) {
 
 $user_data = $user->getUserById($_SESSION['fundus_userid']);
 
+if (!$user_data) {
+    header("Location: login.php");
+}
+
 //for posting success stories
 $post_error = null;
 if ($_SERVER['REQUEST_METHOD'] == "POST") {

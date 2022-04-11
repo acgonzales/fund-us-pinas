@@ -1,0 +1,7 @@
+{
+  "name": "chazz/fundus",
+  "type": "project",
+  "require": {
+    "xendit/xendit-php": "^2.17"
+  }
+}

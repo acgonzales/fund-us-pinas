@@ -3,9 +3,11 @@ session_start();
 
 require_once("classes/User.php");
 require_once("classes/Fundraiser.php");
+require_once("classes/Donation.php");
 
 $user = new User;
 $fundraiser = new Fundraiser;
+$donation = new Donation;
 
 $fundraiser_id = isset($_GET["fundraiser"]) ? $_GET["fundraiser"] : -1;
 $fundraiserData = $fundraiser->getFundraiserById($fundraiser_id);
@@ -27,6 +29,7 @@ if (!$fundraiserData) {
     header("Location: login.php");
 }
 
+$donations = $donation->getFundraiserDonations($fundraiser_id);
 //for posting success stories
 // if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -80,26 +83,29 @@ if (!$fundraiserData) {
                     P<?= $fundraiserData["goal_amount"] ?> goal
                 </strong><br><br>
                 <hr><br>
+
                 <span>
-                    750 users donated
+                    <?= count($donations) ?> donations
                 </span><br>
                 <hr>
-                <span>
-                    Anonymous <br>
-                    P500.00
-                </span><br>
-                <hr>
-                <span>
-                    Matt Feliciano <br>
-                    P500.00
-                </span><br>
-                <hr>
-                <span>
-                    Pearl Esguerra <br>
-                    P500.00
-                </span><br>
-                <hr>
-                <button id="donate" class="btn btn-primary">Donate Now</button><br><br>
+                <?php
+                foreach ($donations as $donation) {
+                    $name = $donation["is_anonymous"] == 1 ? "Anonymous" : $donation["first_name"] . " " . $donation["last_name"];
+                    $amount = $donation["amount"];
+
+                    echo "<span>";
+                    echo "$name <br/>";
+                    echo "P$amount";
+                    echo "</span><br/><hr/>";
+                }
+                ?>
+                <form action="/new-fundraiser-donation.php" method="POST">
+                    <input type="hidden" name="fundraiser_id" value="<?= $fundraiser_id ?>" />
+                    <input type="hidden" name="user_id" value="<?= $user_data["user_id"] ?>" />
+                    <input name="amount" type="number" id="text" placeholder="Amount to Donate" required><br /><br />
+                    <input type="checkbox" name="is_anonymous" /> Donate Anonymously? <br /><br />
+                    <input type="submit" id="donate" class="btn btn-primary" value="Donate Now" /><br><br>
+                </form>
             </div>
 
         </div> <br><br>
