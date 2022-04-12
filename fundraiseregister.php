@@ -14,21 +14,51 @@ if (empty($_SESSION["fundus_userid"])) {
 
 $user_data = $user->getUserById($_SESSION['fundus_userid']);
 
+if (!$user_data) {
+    header("Location: login.php");
+    die;
+}
+
 $title = "";
 $amountgoal = "";
 $description = "";
+$expirationDate = "";
 
 $error = null;
+
+
 
 //for posting fundraisers in user page
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST["title"];
     $description = $_POST["description"];
     $goalAmount = $_POST["amountgoal"];
-
+    $expirationDate = $_POST["expirationDate"];
+    $image = null;
 
     try {
-        $success = $fundraiser->createFundraiser($user_data["user_id"], $title, $description, $goalAmount);
+        if (isset($_FILES["image"])) {
+            $target_dir = "uploads/fundraiser/";
+
+            if (!file_exists($target_dir)) {
+                mkdir($target_dir);
+            }
+
+            $filename = basename($_FILES["image"]["name"]);
+
+            $tmp = explode(".", $filename);
+            $extension =  strtolower(end($tmp));
+
+            $target_file = $target_dir . uniqid("fundraiser_") . "." . $extension;
+
+            if (!move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                throw new Exception("Cannot upload file.");
+            }
+
+            $image = $target_file;
+        }
+
+        $success = $fundraiser->createFundraiser($user_data["user_id"], $title, $description, $goalAmount, $expirationDate, $image);
 
         if (!$success) {
             throw new Exception("Unexpected error.");
@@ -75,19 +105,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "</div>";
             }
             ?>
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <br><br>
                 <p>PLEASE ENTER THE REASON OF THE FUNDRAISING</p>
-                <input value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Title"><br><br>
+                <input required value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Title"><br><br>
                 <p>PLEASE ENTER THE GOAL AMOUNT</p>
-                <input value="<?php echo $amountgoal ?>" name="amountgoal" type="number" id="text" placeholder="Goal amount"><br><br><br>
-                <br>
+                <input required value="<?php echo $amountgoal ?>" name="amountgoal" type="number" id="text" placeholder="Goal amount"><br><br><br>
+                <p>PLEASE ENTER THE EXPIRATION DATE</p>
+                <input required value="<?php echo $expirationDate ?>" name="expirationDate" type="date" id="text" placeholder="Expiration date" /><br /><br /><br />
                 <p>Please insert an image of your fundraising activity</p>
-                <input type="file" id="upload"><br><br>
+                <input required type="file" id="upload" name="image" accept="image/*"><br><br>
                 <p>PLEASE ADD DESCRIPTION ABOUT THE FUNDRAISING</p>
-                
-                <textarea value="<?php echo $description ?>" placeholder="About the fundraising" name="description" id="posttext" cols="30" rows="20"></textarea>
-                
+
+                <textarea required value="<?php echo $description ?>" placeholder="About the fundraising" name="description" id="posttext" cols="30" rows="20"></textarea>
+
                 <br><br>
                 <input type="submit" id="button" value="Submit"><br><br>
 

@@ -68,6 +68,7 @@ class Database
                 `image` TEXT,
                 `description` TEXT,
                 `goal_amount` DECIMAL NOT NULL,
+                `expiration_date` DATE NOT NULL,
                 FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
             );",
             // "CREATE TABLE IF NOT EXISTS `fundraiser_donations` (
@@ -111,14 +112,14 @@ class Database
             "CREATE TABLE IF NOT EXISTS `donations` (
                 `donation_id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
                 `donatable_id` INT UNSIGNED,
-                `donatable_type` ENUM('Foundation', 'Fundraiser', 'Shop') NOT NULL,
+                `donatable_type` ENUM('Foundation', 'Fundraiser', 'Shop'),
                 `fundraiser_id` INT UNSIGNED,
                 `xendit_id` VARCHAR(255) UNIQUE,
                 `amount` DECIMAL NOT NULL,
                 `is_paid` INT(1) DEFAULT 0,
                 `is_anonymous` INT(1) DEFAULT 1,
-                `donated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (`fundraiser_id`) REFERENCES `fundraisers` (`fundraiser_id`)
+                `donated_at` TIMESTAMP,
+                FOREIGN KEY (`fundraiser_id`) REFERENCES `fundraisers` (`fundraiser_id`) ON DELETE SET NULL
             );"
         ];
         try {

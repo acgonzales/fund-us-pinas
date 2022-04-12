@@ -4,22 +4,28 @@ session_start();
 
 require_once("classes/User.php");
 require_once("classes/Fundraiser.php");
+require_once("classes/Donation.php");
 
 $user = new User;
 $fundraiser = new Fundraiser;
+$donation = new Donation;
 
-if (empty($_SESSION["fundus_userid"])) {
+if (isset($_SESSION['fundus_userid'])) {
+    $user_data = $user->getUserById($_SESSION['fundus_userid']);
+
+    if (!$user_data) {
+        unset($_SESSION["fundus_userid"]);
+        header("Location: login.php");
+        die;
+    }
+} else {
     header("Location: login.php");
+    die;
 }
 
-$user_data = $user->getUserById($_SESSION['fundus_userid']);
-
-if (!$user_data) {
-    unset($_SESSION["fundus_userid"]);
-    header("Location: login.php");
-}
-
-$fundraisers = $fundraiser->getFundraisersByUser($user_data["user_id"]);
+$fundraisers = $fundraiser->getNotExpiredFundraisers($user_data["user_id"]);
+$foundationDonations = $donation->getFoundationDonations();
+$totalFoundationDonations = $donation->getFoundationTotalDonations();
 
 ?>
 
@@ -122,29 +128,33 @@ $fundraisers = $fundraiser->getFundraisersByUser($user_data["user_id"]);
                 <br>
                 <span>
                     <img id="logos2" src="images/moneyraised.png" alt="money raised logo">
-                    Money raised: P2000.00
+                    Money raised: <?= $totalFoundationDonations ?>
                 </span>
                 <hr>
                 <span>
                     Recent Donations
                 </span>
                 <hr>
-                <span>
-                    Anonymous <br>
-                    P500.00
-                </span>
-                <hr>
-                <span>
-                    Matt Feliciano <br>
-                    P500.00
-                </span>
-                <hr>
-                <span>
-                    Pearl Esguerra <br>
-                    P500.00
-                </span>
-                <hr>
-                <button id="donate" class="btn btn-primary">Donate Now</button><br><br>
+                <?php
+                foreach ($foundationDonations as $donation) :
+                    $name = "Anonymous";
+
+                    if (!$donation["is_anonymous"] &&  !empty($donation["user_id"])) {
+                        $name = $donation["first_name"] . " " . $donation["last_name"];
+                    }
+                ?>
+                    <span>
+                        <?= $name ?> <br>
+                        P<?= $donation["amount"] ?>
+                    </span>
+                    <hr>
+                <?php endforeach ?>
+                <form action="/new-foundation-donation.php" method="POST">
+                    <input type="hidden" name="user_id" value="<?= $user_data ? $user_data["user_id"] : null ?>" />
+                    <input name="amount" type="number" id="text" placeholder="Amount to Donate" required><br /><br />
+                    <input type="checkbox" name="is_anonymous" /> Donate Anonymously? <br /><br />
+                    <input type="submit" id="donate" class="btn btn-primary" value="Donate Now" /><br><br>
+                </form>
             </div>
         </div> <br><br><br><br>
 

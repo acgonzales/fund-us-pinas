@@ -35,6 +35,22 @@ class Story extends Database
         return true;
     }
 
+    public function deleteStoryById($storyId)
+    {
+        $statement = $this->connection->prepare("DELETE FROM stories WHERE story_id = ?");
+        $statement->bind_param("i", $storyId);
+
+        $success = $statement->execute();
+
+        if (!$success) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->close();
+
+        return true;
+    }
+
     public function likeStory($storyId)
     {
         $statement = $this->connection->prepare("UPDATE stories SET likes = likes + 1 WHERE story_id = ?");

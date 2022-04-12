@@ -3,17 +3,25 @@
 session_start();
 
 require_once("classes/User.php");
+require_once("classes/Shop.php");
+
 $user = new User;
-if (empty($_SESSION["fundus_userid"])) {
+$shop = new Shop;
+
+if (isset($_SESSION['fundus_userid'])) {
+    $user_data = $user->getUserById($_SESSION['fundus_userid']);
+
+    if (!$user_data) {
+        unset($_SESSION["fundus_userid"]);
+        header("Location: login.php");
+        die;
+    }
+} else {
     header("Location: login.php");
+    die;
 }
 
-$user_data = $user->getUserById($_SESSION['fundus_userid']);
-
-if (!$user_data) {
-    header("Location: login.php");
-}
-
+$shops = $shop->getAllShops(); // $shop->getAllConfirmedShops
 
 ?>
 <html>
@@ -45,54 +53,18 @@ if (!$user_data) {
             <a href="registershop.php" id="donate"> Register your shop!</a>
         </div>
         <br><br><br><br>
-        <div id="fundraise" class="card" style="width: 40rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="marketinfo.php" class="btn btn-primary">Go somewhere</a>
+        <?php
+        foreach ($shops as $shop) :
+        ?>
+            <div id="fundraise" class="card" style="width: 40rem;">
+                <img class="card-img-top" src="<?= $shop["image"] ?>" alt="Card image cap" style="height: 200px; width: 100%;">
+                <div class="card-body">
+                    <h5 class="card-title"><?= $shop["name"] ?></h5>
+                    <p class="card-text"><?= $shop["description"] ?></p>
+                    <a href="marketinfo.php?shop=<?= $shop["shop_id"] ?>" class="btn btn-primary">Go somewhere</a>
+                </div>
             </div>
-        </div>
-        <div id="fundraise" class="card" style="width: 40rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div id="fundraise" class="card" style="width: 40rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div id="fundraise" class="card" style="width: 40rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div id="fundraise" class="card" style="width: 40rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div id="fundraise" class="card" style="width: 40rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
+        <?php endforeach ?>
         <br><br><br><br><br><br><br>
         <br><br><br>
     </div>

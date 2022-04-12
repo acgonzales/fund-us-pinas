@@ -8,22 +8,48 @@ require_once("classes/Story.php");
 $user = new User;
 $story = new Story;
 
-if (empty($_SESSION["fundus_userid"])) {
-    header("Location: login.php");
-}
+if (isset($_SESSION['fundus_userid'])) {
+    $user_data = $user->getUserById($_SESSION['fundus_userid']);
 
-$user_data = $user->getUserById($_SESSION['fundus_userid']);
-
-if (!$user_data) {
+    if (!$user_data) {
+        unset($_SESSION["fundus_userid"]);
+        header("Location: login.php");
+        die;
+    }
+} else {
     header("Location: login.php");
+    die;
 }
 
 //for posting success stories
 $post_error = null;
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     try {
+        $image = null;
+
+        if (isset($_FILES["image"]) && !empty($_FILES["tmp_name"])) {
+            $target_dir = "uploads/story/";
+
+            if (!file_exists($target_dir)) {
+                mkdir($target_dir);
+            }
+
+            $filename = basename($_FILES["image"]["name"]);
+
+            $tmp = explode(".", $filename);
+            $extension =  strtolower(end($tmp));
+
+            $target_file = $target_dir . uniqid("story_") . "." . $extension;
+
+            if (!move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                throw new Exception("Cannot upload file.");
+            }
+
+            $image = $target_file;
+        }
+
         $content = $_POST["post"];
-        $result = $story->createStory($user_data["user_id"], $content);
+        $result = $story->createStory($user_data["user_id"], $content, $image);
         header("Location: story.php");
     } catch (Exception $e) {
         $post_error = $e->getMessage();
@@ -62,7 +88,7 @@ $posts = $story->getAllStories();
         </div><br><br><br><br><br><br>
 
         <!-- post text area-->
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <?php
             if ($post_error != null) {
                 echo "<div style='text-align:center;font-size:12px;color:white;background-color:grey;'>";
@@ -71,9 +97,9 @@ $posts = $story->getAllStories();
             }
             ?>
             <div class="row" id="successpost">
-                <textarea placeholder="Thank the community" name="post" id="posttext" cols="30" rows="10"></textarea>
+                <textarea required placeholder="Thank the community" name="post" id="posttext" cols="30" rows="10"></textarea>
                 <br><br>
-                <input id="post_button" type="file" value="Upload" style="margin-left:270px"><br>
+                <input id="post_button" name="image" type="file" value="Upload" style="margin-left:270px" accept="image/*"><br>
                 <input id="post_button" type="submit" value="Submit">
             </div><br><br><br>
         </form>

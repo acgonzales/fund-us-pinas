@@ -5,11 +5,29 @@ session_start();
 
 require_once("classes/User.php");
 require_once("classes/Fundraiser.php");
+require_once("classes/Donation.php");
 
 $user = new User;
-$fundraiser = new Fundraiser;
 
-$fundraisers = $fundraiser->getFundraisers();
+if (isset($_SESSION["fundus_userid"])) {
+    $user_data = $user->getUserById($_SESSION['fundus_userid']);
+    if ($user_data) {
+        header("Location: user.php");
+    } else {
+        unset($_SESSION["fundus_userid"]);
+    }
+}
+
+$fundraiser = new Fundraiser;
+$donation = new Donation;
+
+$fundraisers = $fundraiser->getNotExpiredFundraisers();
+
+$foundationDonations = $donation->getFoundationDonations();
+$totalFoundationDonations = $donation->getFoundationTotalDonations();
+
+
+
 ?>
 
 <html>
@@ -30,26 +48,8 @@ $fundraisers = $fundraiser->getFundraisers();
 <body>
     <div class="container">
 
-        <div class="row" id="fundnav">
-            <div class="col-md-8">
-                <br>
-                <a href="index.php"><img id="Funduspinaslogo" src="images/logo.png" alt="logo of fund us pinas"></a>
-            </div>
-            <div class="col-md-4">
-                <div class="row"><br><br>
+        <?php include("login-header.php") ?>
 
-                    <a id="navigate4" href="login.php">LOGIN</a>
-                    <a id="navigate4" href="signup.php">SIGN UP</a>
-                </div>
-                <div class="row">
-                    <ul class="nav navbar-nav">
-                        <li><a id="navigate2" href="index.php"><img src="images/og_homeicon.png" alt="home icon"></a></li>
-                        <li><a id="navigate2" href="story.php"><img src="images/og_storyicon.png" alt="success story icon"></a></li>
-                        <li><a id="navigate2" href="market.php"><img src="images/og_marketicon.png" alt="market icon"></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <div class="row" id="fundusabout"><br><br><br><br>
             <h1>About Fund Us Pinas</h1><br><br><br>
             <div id="about">
@@ -130,29 +130,31 @@ $fundraisers = $fundraiser->getFundraisers();
                 <br>
                 <span>
                     <img id="logos2" src="images/moneyraised.png" alt="money raised logo">
-                    Money raised: P2000.00
+                    Money raised: <?= $totalFoundationDonations ?>
                 </span>
                 <hr>
                 <span>
                     Recent Donations
                 </span>
                 <hr>
-                <span>
-                    Anonymous <br>
-                    P500.00
-                </span>
-                <hr>
-                <span>
-                    Matt Feliciano <br>
-                    P500.00
-                </span>
-                <hr>
-                <span>
-                    Pearl Esguerra <br>
-                    P500.00
-                </span>
-                <hr>
-                <button id="donate" class="btn btn-primary">Donate Now</button><br><br>
+                <?php
+                foreach ($foundationDonations as $donation) :
+                    $name = "Anonymous";
+
+                    if (!$donation["is_anonymous"] &&  !empty($donation["user_id"])) {
+                        $name = $donation["first_name"] . " " . $donation["last_name"];
+                    }
+                ?>
+                    <span>
+                        <?= $name ?> <br>
+                        P<?= $donation["amount"] ?>
+                    </span>
+                    <hr>
+                <?php endforeach ?>
+                <form action="/new-anon-foundation-donation.php" method="POST">
+                    <input name="amount" type="number" id="text" placeholder="Amount to Donate" required><br /><br />
+                    <input type="submit" id="donate" class="btn btn-primary" value="Donate Now" /><br><br>
+                </form>
             </div>
         </div> <br><br><br><br>
 

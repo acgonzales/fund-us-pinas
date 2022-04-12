@@ -1,41 +1,74 @@
-
 <?php
 
 session_start();
 
 require_once("classes/User.php");
-require_once("classes/Fundraiser.php");
+require_once("classes/Shop.php");
 
 $user = new User;
-$fundraiser = new Fundraiser;
+$shop = new Shop;
 
-if (empty($_SESSION["fundus_userid"])) {
+if (isset($_SESSION['fundus_userid'])) {
+    $user_data = $user->getUserById($_SESSION['fundus_userid']);
+
+    if (!$user_data) {
+        unset($_SESSION["fundus_userid"]);
+        header("Location: login.php");
+        die;
+    }
+} else {
     header("Location: login.php");
+    die;
 }
 
-$user_data = $user->getUserById($_SESSION['fundus_userid']);
-
-$title = "";
-$amountgoal = "";
+$name = "";
 $description = "";
+$fb = "";
+$ig = "";
+$shopee = "";
+$lazada = "";
 
 $error = null;
 
 //for posting fundraisers in user page
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = $_POST["title"];
-    $description = $_POST["description"];
-    $goalAmount = $_POST["amountgoal"];
-
-
     try {
-        $success = $fundraiser->createFundraiser($user_data["user_id"], $title, $description, $goalAmount);
+        $name = $_POST["name"];
+        $description = $_POST["description"];
+        $fb = $_POST["fb"];
+        $ig = $_POST["ig"];
+        $shopee = $_POST["shopee"];
+        $lazada = $_POST["lazada"];
+        $image = null;
+
+        if (isset($_FILES["image"])) {
+            $target_dir = "uploads/shop/";
+
+            if (!file_exists($target_dir)) {
+                mkdir($target_dir);
+            }
+
+            $filename = basename($_FILES["image"]["name"]);
+
+            $tmp = explode(".", $filename);
+            $extension =  strtolower(end($tmp));
+
+            $target_file = $target_dir . uniqid("story_") . "." . $extension;
+
+            if (!move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                throw new Exception("Cannot upload file.");
+            }
+
+            $image = $target_file;
+        }
+
+        $success = $shop->createShop($user_data["user_id"], $name, $description, $image, $fb, $ig, $shopee, $lazada);
 
         if (!$success) {
             throw new Exception("Unexpected error.");
         }
 
-        header("Location: user.php");
+        header("Location: market.php");
         die;
     } catch (Exception $e) {
         $error = $e->getMessage();
@@ -76,30 +109,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "</div>";
             }
             ?>
-            
-            <form method="post">
+
+            <form method="post" enctype="multipart/form-data">
                 <br><br>
                 <p>PLEASE ENTER YOUR SHOP NAME</p>
-                <input value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Title"><br><br>
+                <input required value="<?php echo $name ?>" name="name" type="text" id="text" placeholder="Title"><br><br>
                 <p>Enter your facebook link</p>
-                <input value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="facebook link"><br><br>
+                <input value="<?php echo $fb ?>" name="fb" type="text" id="text" placeholder="facebook link"><br><br>
                 <p>Enter your instagram link</p>
-                <input value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Instagram link"><br><br>
+                <input value="<?php echo $ig ?>" name="ig" type="text" id="text" placeholder="Instagram link"><br><br>
                 <p>Enter your shopee link</p>
-                <input value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Shopee link"><br><br>
+                <input value="<?php echo $shopee ?>" name="shopee" type="text" id="text" placeholder="Shopee link"><br><br>
                 <p>Enter your Lazada link</p>
-                <input value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Lazada link"><br><br>
+                <input value="<?php echo $lazada ?>" name="lazada" type="text" id="text" placeholder="Lazada link"><br><br>
                 <br>
                 <div id="uploadimage">
                     <p id="insertimg">Please insert an image of your shop</p>
-                    <input type="file" id="upload1" ><br><br>
+                    <input type="file" id="upload1" name="image" accept="image/*" required><br><br>
                 </div>
-                
+
                 <br>
                 <p>Add description about your shop</p>
-                <textarea value="<?php echo $description ?>" placeholder="About your shop and its products" name="description" id="posttext" cols="30" rows="20"></textarea>
+                <textarea required value="<?php echo $description ?>" placeholder="About your shop and its products" name="description" id="posttext" cols="30" rows="20"></textarea>
                 <br><br><br>
-                
+
                 <input type="submit" id="button" value="Submit"><br><br>
 
             </form>

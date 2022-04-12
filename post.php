@@ -15,18 +15,35 @@
             <div id="Username">
                 <?php
                 echo $ROW['first_name'] . " " . $ROW['last_name'];
+                if ($user_data && $user_data["user_id"] == $ROW["user_id"]) :
                 ?>
+                    <form action="/delete-story.php" method="POST" style="display: inline;">
+                        <input type="hidden" name="story_id" value="<?= $ROW["story_id"] ?>" />
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                <?php endif ?>
             </div><br>
             <!-- POST TEXT-->
 
             <p id="posting">
                 <?php echo  $ROW['content'] ?>
+                <?php if (!empty($ROW["image"])) : ?>
+                    <br />
+                    <img src="<?= $ROW["image"] ?>" style="height: 150px; width: 300px;" />
+                <?php endif ?>
             </p>
 
-            <br><br>
+            <br>
             <form action="/like.php" method="POST" id="like_form">
                 <input type="hidden" name="story_id" value="<?= $ROW["story_id"] ?>" />
-                <a id="like" href="javascript:void(0)" onclick="document.getElementById('like_form').submit()">Like</a>
+                <button id="like" type="submit" style="border: none;"><a>Like</a></button>
+                ~
+                <span style="color: #999;">
+                    <?php
+                    echo $ROW['likes']
+                    ?>
+                    likes
+                </span>
                 ~
                 <span style="color: #999;">
                     <?php
