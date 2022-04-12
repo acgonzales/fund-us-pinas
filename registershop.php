@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -62,10 +63,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <?php include("header.php"); ?>
 
-        <div class="regform" id="registration"><br><br>
+        <div class="regform" id="registration">
 
 
-            <h1>Fill out the form to start the fundraising</h1><br>
+            <h1>Fill out the form to register your shop</h1><br>
 
             <?php
 
@@ -75,20 +76,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "</div>";
             }
             ?>
+            
             <form method="post">
                 <br><br>
-                <p>PLEASE ENTER THE REASON OF THE FUNDRAISING</p>
+                <p>PLEASE ENTER YOUR SHOP NAME</p>
                 <input value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Title"><br><br>
-                <p>PLEASE ENTER THE GOAL AMOUNT</p>
-                <input value="<?php echo $amountgoal ?>" name="amountgoal" type="number" id="text" placeholder="Goal amount"><br><br><br>
+                <p>Enter your facebook link</p>
+                <input value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="facebook link"><br><br>
+                <p>Enter your instagram link</p>
+                <input value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Instagram link"><br><br>
+                <p>Enter your shopee link</p>
+                <input value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Shopee link"><br><br>
+                <p>Enter your Lazada link</p>
+                <input value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Lazada link"><br><br>
                 <br>
-                <p>Please insert an image of your fundraising activity</p>
-                <input type="file" id="upload"><br><br>
-                <p>PLEASE ADD DESCRIPTION ABOUT THE FUNDRAISING</p>
+                <div id="uploadimage">
+                    <p id="insertimg">Please insert an image of your shop</p>
+                    <input type="file" id="upload1" ><br><br>
+                </div>
                 
-                <textarea value="<?php echo $description ?>" placeholder="About the fundraising" name="description" id="posttext" cols="30" rows="20"></textarea>
+                <br>
+                <p>Add description about your shop</p>
+                <textarea value="<?php echo $description ?>" placeholder="About your shop and its products" name="description" id="posttext" cols="30" rows="20"></textarea>
+                <br><br><br>
                 
-                <br><br>
                 <input type="submit" id="button" value="Submit"><br><br>
 
             </form>

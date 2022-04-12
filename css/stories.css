@@ -9,20 +9,21 @@
     
 }
 
-#successpost{
+#successpost {
     border-radius: 10px;
     text-align: center;
     border: 3px solid rgb(128, 128, 128);
     width: 50%;
     margin: auto;
     padding: 20px 0 20px 0;
-    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
-
+    background-image: linear-gradient(to right top, rgb(10 77 122), rgb(8 90 145), rgb(10 77 122));
 }
+
 #posttext{
     width: 92%;
     border: none;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
     font-size: 16pt;
     padding: 20px;
     height: 200px;
@@ -31,7 +32,7 @@
 #post_button{
     border: 2px solid white;
     color: white;
-    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+    background-color: rgb(8, 90, 145);
     font-size: 14pt;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border-radius: 20px;

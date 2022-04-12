@@ -42,7 +42,7 @@ if (!$user_data) {
             <h1 id="marketplace">
                 Marketplace
             </h1>
-            <button id="donate" class="btn btn-primary">Register your shop!</button>
+            <a href="registershop.php" id="donate"> Register your shop!</a>
         </div>
         <br><br><br><br>
         <div id="fundraise" class="card" style="width: 40rem;">
@@ -50,7 +50,7 @@ if (!$user_data) {
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="marketinfo.php" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
         <div id="fundraise" class="card" style="width: 40rem;">

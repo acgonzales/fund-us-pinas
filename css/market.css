@@ -3,10 +3,14 @@
     
     padding-bottom: 40px;
 }
-#markettitle h1{
+#markettitle h1 {
     font-size: 55pt;
     font-family: league spartan;
-    background-color: rgb(187, 77, 123, 40%);
-    color: rgb(156, 48, 48);
+    background-color: rgb(255 255 255);
+    color: #085a91;
     text-align: center;
+}
+
+#markettitle{
+    background-color: rgb(255 255 255);
 }

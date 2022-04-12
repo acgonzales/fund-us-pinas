@@ -73,6 +73,7 @@ $posts = $story->getAllStories();
             <div class="row" id="successpost">
                 <textarea placeholder="Thank the community" name="post" id="posttext" cols="30" rows="10"></textarea>
                 <br><br>
+                <input id="post_button" type="file" value="Upload" style="margin-left:270px"><br>
                 <input id="post_button" type="submit" value="Submit">
             </div><br><br><br>
         </form>

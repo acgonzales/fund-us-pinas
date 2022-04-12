@@ -8,17 +8,19 @@
     
 }
 #fundnav{
-    background-color: black;
-    /* background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72)); */
+    /* background-color: rgb(8, 90, 145); */
+    /*background-color: #e3d7b2;*/
+    background-image: linear-gradient(to right top, #0036a4, rgb(255 255 255), rgb(0 56 168));
 }
 #funduspinaslogo{
     margin-left: 70px;
+    width: 50%;
 }
 #name{
     font-weight: bolder;
-    padding: 10px;
+    padding: 5px;
     text-decoration: none;
-    margin-top: 30px;
+    margin-top: 5px;
     margin-left: 20px;
     color: white;
 
@@ -27,7 +29,7 @@
     font-weight: bolder;
     padding: 10px;
     text-decoration: none;
-    margin-top: 30px;
+    
     margin-left: 10px;
     color: black;
     background-color: white;
@@ -39,7 +41,7 @@
     font-weight: bolder;
     padding: 10px;
     text-decoration: none;
-    margin-top: 30px;
+    
     margin-left: 50px;
     color: black;
     background-color: white;
@@ -48,15 +50,14 @@
 
 }
 #navigate2{
-    margin-top: 30px;
-    margin-left: 10px;
-
-    
+    margin-top: 12px;
+    margin-left: 15px;    
 }
 #navigate2 img{
     height: 40pt;
     width: 40pt;
-    background-color: white;
+    margin-top: 10px;
+    background-color: rgb(255, 255, 255);
     box-sizing: border-box;
     border-radius: 45px;
 }
@@ -69,15 +70,29 @@
 #userimage3{
     width: 55px;
     border-radius: 50px;
-    margin-right: 5px;
+    margin-left: 55px;
+
 }
+#upload{
+    width: 100%;
+    margin-left: 43%;
+}
+#insertimg{
+    width: 100%;
+    padding-right: 11%;
+}
+#upload1{
+    width: 100%;
+    margin-left: 37%;
+}
+
 #moneyline{
     text-align: center;
 
     padding-bottom: 58px;
     background-color: aliceblue;
     
-}
+}   
 #money{
     margin-left: 50px;
     margin-top: 30px;
@@ -90,11 +105,14 @@
     width: 15%;
 }
 
-#donate{
-    color: white;
-    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+#donate {
+    color: #ffffff;
+    background-color: rgb(8 90 145);
     font-size: 16pt;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding: 5px;
+    border-radius: 10px;
+    text-decoration: none;
 }
 #tag{
     margin-top: 120px;
@@ -106,7 +124,8 @@
 }
 #tag2{
     margin-top: 100px;
-    margin-left: 200px;
+    margin-left: 150px;
+    text-align: center;
     width: 40%;
     background-color: rgb(255, 255, 255, 80%);
     box-shadow:10px 10px 20px;
@@ -135,7 +154,6 @@
 .card{
     display: inline-block;
     margin: 20px 25px 5px 20px;
-    
 
 }
 
@@ -146,12 +164,13 @@
 }
 
 #fundraise{
+
     padding: 10px;
-    
     height: 350px;
-    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+    background-color: rgb(8, 90, 145);
     font-size: 16px;
     color: whitesmoke;
+
     font-family: Arial, Helvetica, sans-serif;
 }
 

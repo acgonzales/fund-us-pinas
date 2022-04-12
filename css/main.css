@@ -2,15 +2,12 @@
     margin: 0;
     padding: 0;
 }
-body{
-    background-image: url(marketbg.jpg);
-}
 .container{
     width: 100%;
     
 }
 #fundnav{
-    background-image: linear-gradient(to right top, rgb(255, 66, 138), rgb(201, 19, 64), rgb(255, 44, 72));
+    background-image: linear-gradient(to right top, #0036a4, rgb(255 255 255), rgb(0 56 168));
 }
 #name{
     font-weight: bolder;

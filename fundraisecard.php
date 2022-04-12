@@ -1,5 +1,5 @@
-<div id="fundraise" class="card" style="width: 27%;">
-
+<div id="fundraise" class="card" style="width: 27%; height: 37%">
+    
     <img class="card-img-top" src="images/donate1.jpg" alt="Card image cap" style="width: 100%">
 
     <div class="card-body">
@@ -19,7 +19,7 @@
             ?>
         </h5>
 
-        <a href="donate.php?fundraiser=<?= $ROW["fundraiser_id"] ?>" class="btn btn-primary">See more</a>
+        <a href="donate.php?fundraiser=<?= $ROW["fundraiser_id"] ?>" class="btn btn-primary" id="cardbutton">See more</a>
 
     </div>
 </div>
