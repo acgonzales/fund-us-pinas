@@ -34,11 +34,11 @@ class User extends Database
         $user_id = $statement->insert_id;
         $statement->close();
 
-        $url_address = "$firstName.$lastName.$user_id";
-        $url_address_update = $this->connection->prepare("UPDATE users SET url_address=? WHERE user_id=?");
-        $url_address_update->bind_param("si", $url_address, $user_id);
-        $url_address_update->execute();
-        $url_address_update->close();
+        // $url_address = "$firstName.$lastName.$user_id";
+        // $url_address_update = $this->connection->prepare("UPDATE users SET url_address=? WHERE user_id=?");
+        // $url_address_update->bind_param("si", $url_address, $user_id);
+        // $url_address_update->execute();
+        // $url_address_update->close();
 
         return true;
     }

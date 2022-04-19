@@ -5,10 +5,12 @@ session_start();
 require_once("classes/User.php");
 require_once("classes/Fundraiser.php");
 require_once("classes/Donation.php");
+require_once("classes/Shop.php");
 
 $user = new User;
 $fundraiser = new Fundraiser;
 $donation = new Donation;
+$shop = new Shop;
 
 if (isset($_SESSION['fundus_userid'])) {
     $user_data = $user->getUserById($_SESSION['fundus_userid']);
@@ -23,9 +25,11 @@ if (isset($_SESSION['fundus_userid'])) {
     die;
 }
 
-$fundraisers = $fundraiser->getNotExpiredFundraisers($user_data["user_id"]);
+$fundraisers = $fundraiser->getFundraisersByUser($user_data["user_id"]);
 $foundationDonations = $donation->getFoundationDonations();
 $totalFoundationDonations = $donation->getFoundationTotalDonations();
+
+$userShops = $shop->getShopsByUser($user_data["user_id"]);
 
 ?>
 
@@ -139,8 +143,8 @@ $totalFoundationDonations = $donation->getFoundationTotalDonations();
                 foreach ($foundationDonations as $donation) :
                     $name = "Anonymous";
 
-                    if (!$donation["is_anonymous"] &&  !empty($donation["user_id"])) {
-                        $name = $donation["first_name"] . " " . $donation["last_name"];
+                    if ($donation["is_anonymous"] != 1) {
+                        $name = $donation["donator_type"] == "App\\Models\\User" ? $donation["first_name"] . " " . $donation["last_name"] : $donation["shop_name"];
                     }
                 ?>
                     <span>
@@ -151,6 +155,20 @@ $totalFoundationDonations = $donation->getFoundationTotalDonations();
                 <?php endforeach ?>
                 <form action="/new-foundation-donation.php" method="POST">
                     <input type="hidden" name="user_id" value="<?= $user_data ? $user_data["user_id"] : null ?>" />
+
+                    <label for="donator_type"> Donate as: </label>
+                    <input type="radio" name="donator_type" value="USER" checked> Myself
+                    <input id="shop_option" type="radio" name="donator_type" value="SHOP" <?= !$userShops ? 'disabled' : '' ?>> Shop
+
+                    <div id="shop_selection" style="display: none;">
+                        <label for="shop_id">Shop:</label>
+                        <select type="select" name="shop_id" id="shop_id">
+                            <?php foreach ($userShops as $shop) : ?>
+                                <option value="<?= $shop["shop_id"] ?>"><?= $shop["name"] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
                     <input name="amount" type="number" id="text" placeholder="Amount to Donate" required><br /><br />
                     <input type="checkbox" name="is_anonymous" /> Donate Anonymously? <br /><br />
                     <input type="submit" id="donate" class="btn btn-primary" value="Donate Now" /><br><br>
@@ -200,6 +218,16 @@ $totalFoundationDonations = $donation->getFoundationTotalDonations();
             </div>
         </div>
     </div>
+
+    <script>
+        $("input[name='donator_type']").on("change checked", function(e) {
+            if ($("#shop_option").is(":checked")) {
+                $("#shop_selection").show();
+            } else {
+                $("#shop_selection").hide();
+            }
+        });
+    </script>
 </body>
 
 </html>

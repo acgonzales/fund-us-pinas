@@ -9,7 +9,7 @@ if (
 
     $redirect = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "http://fundus.test/";
 
-    $invoice = $donation->createFoundationDonation($_POST["amount"], redirect_to: $redirect);
+    $invoice = $donation->createFoundationDonation(null, null, $_POST["amount"], true, redirect_to: $redirect);
     $checkoutUrl = $invoice["invoice_url"];
 
     header("Location: $checkoutUrl");

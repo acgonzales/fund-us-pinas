@@ -21,7 +21,8 @@ if (isset($_SESSION['fundus_userid'])) {
     die;
 }
 
-$shops = $shop->getAllShops(); // $shop->getAllConfirmedShops
+// $shops = $shop->getAllShops(); 
+$shops = $shop->getAllConfirmedShops();
 
 ?>
 <html>

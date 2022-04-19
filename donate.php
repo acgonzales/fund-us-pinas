@@ -4,10 +4,12 @@ session_start();
 require_once("classes/User.php");
 require_once("classes/Fundraiser.php");
 require_once("classes/Donation.php");
+require_once("classes/Shop.php");
 
 $user = new User;
 $fundraiser = new Fundraiser;
 $donation = new Donation;
+$shop = new Shop;
 
 $user_data = null;
 
@@ -27,6 +29,13 @@ if (!$fundraiserData) {
 
 $donations = $donation->getFundraiserDonations($fundraiser_id);
 
+$userShops = null;
+
+if ($user_data) {
+    $userShops = $shop->getShopsByUser($user_data["user_id"]);
+}
+
+$progressData = $donation->getFundraiserDonationProgress($fundraiser_id);
 ?>
 <html>
 
@@ -73,7 +82,13 @@ $donations = $donation->getFundraiserDonations($fundraiser_id);
                 <br><br>
                 <strong>
                     P<?= $fundraiserData["goal_amount"] ?> goal
-                </strong><br><br>
+                </strong>
+
+                <div class="progress" style="margin-top: 4px;">
+                    <div class="progress-bar" role="progressbar" style="width: <?= $progressData['progress'] ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                        <?= $progressData['progress'] ?>%
+                    </div>
+                </div>
                 <hr><br>
 
                 <strong>
@@ -87,7 +102,12 @@ $donations = $donation->getFundraiserDonations($fundraiser_id);
                 <hr>
                 <?php
                 foreach ($donations as $donation) {
-                    $name = $donation["is_anonymous"] == 1 ? "Anonymous" : $donation["first_name"] . " " . $donation["last_name"];
+                    $name = "Anonymous";
+
+                    if ($donation["is_anonymous"] != 1) {
+                        $name = $donation["donator_type"] == "App\\Models\\User" ? $donation["first_name"] . " " . $donation["last_name"] : $donation["shop_name"];
+                    }
+
                     $amount = $donation["amount"];
 
                     echo "<span>";
@@ -99,6 +119,20 @@ $donations = $donation->getFundraiserDonations($fundraiser_id);
                 <form action="/new-fundraiser-donation.php" method="POST">
                     <input type="hidden" name="fundraiser_id" value="<?= $fundraiser_id ?>" />
                     <input type="hidden" name="user_id" value="<?= $user_data ? $user_data["user_id"] : null ?>" />
+
+                    <label for="donator_type"> Donate as: </label>
+                    <input type="radio" name="donator_type" value="USER" checked> Myself
+                    <input id="shop_option" type="radio" name="donator_type" value="SHOP" <?= !$userShops ? 'disabled' : '' ?>> Shop
+
+                    <div id="shop_selection" style="display: none;">
+                        <label for="shop_id">Shop:</label>
+                        <select type="select" name="shop_id" id="shop_id">
+                            <?php foreach ($userShops as $shop) : ?>
+                                <option value="<?= $shop["shop_id"] ?>"><?= $shop["name"] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
                     <input name="amount" type="number" id="text" placeholder="Amount to Donate" required><br /><br />
                     <?php
                     if (!$user_data) :
@@ -125,6 +159,15 @@ $donations = $donation->getFundraiserDonations($fundraiser_id);
     </div>
     <br><br>
     </div>
+    <script>
+        $("input[name='donator_type']").on("change checked", function(e) {
+            if ($("#shop_option").is(":checked")) {
+                $("#shop_selection").show();
+            } else {
+                $("#shop_selection").hide();
+            }
+        });
+    </script>
 </body>
 
 </html>

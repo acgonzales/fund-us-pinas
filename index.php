@@ -141,8 +141,8 @@ $totalFoundationDonations = $donation->getFoundationTotalDonations();
                 foreach ($foundationDonations as $donation) :
                     $name = "Anonymous";
 
-                    if (!$donation["is_anonymous"] &&  !empty($donation["user_id"])) {
-                        $name = $donation["first_name"] . " " . $donation["last_name"];
+                    if ($donation["is_anonymous"] != 1) {
+                        $name = $donation["donator_type"] == "App\\Models\\User" ? $donation["first_name"] . " " . $donation["last_name"] : $donation["shop_name"];
                     }
                 ?>
                     <span>

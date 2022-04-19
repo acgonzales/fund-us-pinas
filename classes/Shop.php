@@ -57,6 +57,21 @@ class Shop extends Database
         return $fundraiser;
     }
 
+    public function getShopsByUser($userId)
+    {
+        $statement = $this->connection->prepare("SELECT s.*, u.* FROM shops s
+                                                 INNER JOIN users u ON u.user_id = s.user_id
+                                                 WHERE s.user_id=?");
+        $statement->bind_param("i", $userId);
+        $statement->execute();
+
+        $results = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $statement->close();
+
+        return $results;
+    }
+
     public function getAllConfirmedShops($limit = 6)
     {
         $statement = $this->connection->prepare("SELECT s.*, u.* FROM shops s 

@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     try {
         $image = null;
 
-        if (isset($_FILES["image"]) && !empty($_FILES["tmp_name"])) {
+        if (isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
             $target_dir = "uploads/story/";
 
             if (!file_exists($target_dir)) {

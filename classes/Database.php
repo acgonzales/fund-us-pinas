@@ -12,7 +12,7 @@ class Database
     public function __construct()
     {
         $this->connect();
-        $this->initializeTables();
+        // $this->initializeTables();
     }
 
     private function connect()
