@@ -21,9 +21,9 @@ class User extends Database
         $password = password_hash($password, PASSWORD_BCRYPT);
 
         $statement = $this->connection->prepare("INSERT INTO users 
-                                                (first_name, last_name, gender, email, password) 
+                                                (first_name, last_name, gender, email, password, registered_at) 
                                                 VALUES
-                                                (?, ?, ?, ?, ?)");
+                                                (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
         $statement->bind_param("sssss", $firstName, $lastName, $gender, $email, $password);
         $success = $statement->execute();
 
