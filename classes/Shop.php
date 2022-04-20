@@ -23,7 +23,7 @@ class Shop extends Database
 
     public function deleteShopById($shopId)
     {
-        $statement = $this->connection->prepare("DELETE FROM shops WHERE shop_id = ?");
+        $statement = $this->connection->prepare("UPDATE shops SET deleted_at=CURRENT_TIMESTAMP WHERE shop_id = ?");
         $statement->bind_param("i", $shopId);
 
         $success = $statement->execute();
@@ -41,7 +41,7 @@ class Shop extends Database
     {
         $statement = $this->connection->prepare("SELECT s.*, u.* FROM shops s
                                                  INNER JOIN users u ON u.user_id = s.user_id
-                                                 WHERE shop_id=? LIMIT 1");
+                                                 WHERE deleted_at IS NULL AND shop_id=? LIMIT 1");
         $statement->bind_param("i", $shopId);
         $statement->execute();
 
@@ -61,7 +61,7 @@ class Shop extends Database
     {
         $statement = $this->connection->prepare("SELECT s.*, u.* FROM shops s
                                                  INNER JOIN users u ON u.user_id = s.user_id
-                                                 WHERE s.user_id=?");
+                                                 WHERE deleted_at IS NULL AND s.user_id=?");
         $statement->bind_param("i", $userId);
         $statement->execute();
 
@@ -76,7 +76,7 @@ class Shop extends Database
     {
         $statement = $this->connection->prepare("SELECT s.*, u.* FROM shops s 
                                                  INNER JOIN users u ON u.user_id = s.user_id 
-                                                 WHERE is_confirmed = 1
+                                                 WHERE deleted_at IS NULL AND is_confirmed = 1
                                                  ORDER BY shop_id DESC
                                                  LIMIT ?");
         $statement->bind_param("i", $limit);
@@ -93,6 +93,7 @@ class Shop extends Database
     {
         $statement = $this->connection->prepare("SELECT s.*, u.* FROM shops s 
                                                  INNER JOIN users u ON u.user_id = s.user_id 
+                                                 WHERE deleted_at IS NULL
                                                  ORDER BY shop_id DESC
                                                  LIMIT ?");
         $statement->bind_param("i", $limit);

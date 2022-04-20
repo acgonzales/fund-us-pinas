@@ -1,14 +1,8 @@
 <div id="post_bar">
     <!-- post start -->
     <div id="post">
-        <?php
-        $image = "images/male.png";
-        if ($ROW['gender'] == "Female") {
-            $image = "images/female.jpg";
-        }
-        ?>
         <div>
-            <img id="userimage2" src="<?php echo $image ?>" alt="user image">
+            <img id="userimage2" src="https://avatars.dicebear.com/api/identicon/<?= $ROW['email'] ?>.svg" alt="user image">
         </div>
         <div>
 
@@ -29,7 +23,7 @@
                 <?php echo  $ROW['content'] ?>
                 <?php if (!empty($ROW["image"])) : ?>
                     <br />
-                    <img src="<?= $ROW["image"] ?>" style="height: 150px; width: 300px;" />
+                    <img src="<?= $ROW["image"] ?>" style="height: 250px; width: 350px;" />
                 <?php endif ?>
             </p>
 
