@@ -26,7 +26,7 @@ class Fundraiser extends Database
 
     public function deleteFundraiserById($fundraiserId)
     {
-        $statement = $this->connection->prepare("DELETE FROM fundraisers WHERE fundraiser_id = ?");
+        $statement = $this->connection->prepare("UPDATE fundraisers SET deleted_at=CURRENT_TIMESTAMP WHERE fundraiser_id = ?");
         $statement->bind_param("i", $fundraiserId);
 
         $success = $statement->execute();
