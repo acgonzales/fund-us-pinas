@@ -138,11 +138,8 @@ class Donation extends Database
 
     public function getFoundationTotalDonations()
     {
-        return 0;
-        $donationType = FOUNDATION_DONATION;
         $statement = $this->connection->prepare("SELECT SUM(amount) AS total_amount FROM donations
-                                                 WHERE donatable_type = ? AND is_paid = 1;");
-        $statement->bind_param("s", $donationType);
+                                                 WHERE donation_type = 'Foundation' AND is_paid = 1;");
         $statement->execute();
 
         $result = $statement->get_result();
