@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p>PLEASE ENTER THE REASON OF THE FUNDRAISING</p>
                 <input required value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Title"><br><br>
                 <p>PLEASE ENTER THE GOAL AMOUNT</p>
-                <input required value="<?php echo $amountgoal ?>" name="amountgoal" type="number" id="text" placeholder="Goal amount"><br><br><br>
+                <input required value="<?php echo $amountgoal ?>" name="amountgoal" type="number" min="500" id="text" placeholder="Goal amount"><br><br><br>
                 <p>Please insert an image of your fundraising activity</p>
                 <input required type="file" id="upload" name="image" accept="image/*"><br><br>
                 <p>PLEASE ADD DESCRIPTION ABOUT THE FUNDRAISING</p>
