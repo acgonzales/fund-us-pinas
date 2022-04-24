@@ -23,6 +23,8 @@ $title = "";
 $amountgoal = "";
 $description = "";
 $expirationDate = "";
+$gcash = "";
+$gcashAccount = "";
 
 $error = null;
 
@@ -35,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $goalAmount = $_POST["amountgoal"];
     $expirationDate = $_POST["expirationDate"];
     $gcash = $_POST["gcash"];
+    $gcashAccount = $_POST["gcash_account"];
     $image = null;
 
     try {
@@ -66,6 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $goalAmount,
             $expirationDate,
             $gcash,
+            $gcashAccount,
             $image
         );
 
@@ -124,6 +128,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <br><br>
                 <p>PLEASE ENTER THE REASON OF THE FUNDRAISING</p>
                 <input required value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Title"><br><br>
+                <p>PLEASE ENTER YOUR GCASH ACCOUNT NAME</p>
+                <input required value="<?php echo $gcashAccount ?>" name="gcash_account" type="text" id="text" placeholder="Gcash Account"><br><br>
                 <p>PLEASE ENTER YOUR GCASH NUMBER</p>
                 <input required value="<?php echo $gcash ?>" name="gcash" type="number" id="text" placeholder="Gcash"><br><br>
                 <p>PLEASE ENTER THE GOAL AMOUNT</p>
