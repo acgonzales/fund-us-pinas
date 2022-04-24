@@ -93,7 +93,7 @@ class Fundraiser extends Database
         $statement = $this->connection->prepare("INSERT INTO fundraisers 
                                                 (user_id, title, image, description, goal_amount, expiration_date, gcash, gcash_account, created_at, updated_at)
                                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)");
-        $statement->bind_param("issssss", $userId, $title, $image, $description, $goalAmount, $expirationDate, $gcash, $gcashAccount);
+        $statement->bind_param("isssssss", $userId, $title, $image, $description, $goalAmount, $expirationDate, $gcash, $gcashAccount);
         $success = $statement->execute();
 
         if (!$success) {
