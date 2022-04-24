@@ -21,6 +21,23 @@ class Shop extends Database
         return true;
     }
 
+    public function updateShop($shopId, $name, $description, $image = null, $fb = null, $ig = null, $shopee = null, $lazada = null)
+    {
+        $statement = $this->connection->prepare("UPDATE shops 
+                                                 SET name=?, description=?, image=?, fb_link=?, ig_link=?, shopee_link=?, lazada_link=?
+                                                 WHERE shop_id = ?");
+        $statement->bind_param("sssssssi", $name, $description, $image, $fb, $ig, $shopee, $lazada, $shopId);
+        $success = $statement->execute();
+
+        if (!$success) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->close();
+
+        return true;
+    }
+
     public function deleteShopById($shopId)
     {
         $statement = $this->connection->prepare("UPDATE shops SET deleted_at=CURRENT_TIMESTAMP WHERE shop_id = ?");

@@ -55,6 +55,7 @@ if (!$shopData) {
                 <?php
                 if ($user_data["user_id"] == $shopData["user_id"]) :
                 ?>
+                    <a href="/editshop.php?shop=<?= $shopId ?>" class="btn btn-info">Edit</a>
                     <form action="/delete-shop.php" method="POST" style="display: inline;">
                         <input type="hidden" name="shop_id" value="<?= $shopId ?>" />
                         <button class="btn btn-danger" type="submit">Delete</button>
