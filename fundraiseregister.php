@@ -34,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = $_POST["description"];
     $goalAmount = $_POST["amountgoal"];
     $expirationDate = $_POST["expirationDate"];
+    $gcash = $_POST["gcash"];
     $image = null;
 
     try {
@@ -58,7 +59,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $image = $target_file;
         }
 
-        $success = $fundraiser->createFundraiser($user_data["user_id"], $title, $description, $goalAmount, $expirationDate, $image);
+        $success = $fundraiser->createFundraiser(
+            $user_data["user_id"],
+            $title,
+            $description,
+            $goalAmount,
+            $expirationDate,
+            $gcash,
+            $image
+        );
 
         if (!$success) {
             throw new Exception("Unexpected error.");
@@ -115,6 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <br><br>
                 <p>PLEASE ENTER THE REASON OF THE FUNDRAISING</p>
                 <input required value="<?php echo $title ?>" name="title" type="text" id="text" placeholder="Title"><br><br>
+                <p>PLEASE ENTER YOUR GCASH NUMBER</p>
+                <input required value="<?php echo $gcash ?>" name="gcash" type="number" id="text" placeholder="Gcash"><br><br>
                 <p>PLEASE ENTER THE GOAL AMOUNT</p>
                 <input required value="<?php echo $amountgoal ?>" name="amountgoal" type="number" id="text" placeholder="Goal amount"><br><br><br>
                 <p>Please insert an image of your fundraising activity</p>
