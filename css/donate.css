@@ -37,11 +37,10 @@
 #organizer{
     font-size: 20pt;
     font-weight: bolder;
-    font-style: italic;
-    font-family:shrikhand;
+    font-family: Arial;
 }
 #details{
     font-size: 16pt;
-    font-family:glacial indifference;
+    font-family: Arial;
 }
 

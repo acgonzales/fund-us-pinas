@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .container{
@@ -101,6 +102,12 @@
     box-shadow:10px 10px 20px;
     
 }
+
+#lingapdonation{
+    font-weight: bold;
+    font-size: 22px;
+}
+
 #logos2{
     width: 15%;
 }
@@ -132,21 +139,19 @@
     
 }
 #happen{
-    font-family: alegreya;
-
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 50pt;
     font-weight: bolder;
     
 }
 #happen2{
-    font-family: alegreya;
-
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 28pt;
     font-weight: bolder;
     
 }
 #strong{
-    font-family: glacial indifference;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 400;
     font-size: 30pt;
 }

@@ -24,10 +24,17 @@ if (isset($_SESSION['fundus_userid'])) {
     header("Location: login.php");
     die;
 }
+$fundraiser = new Fundraiser;
+$donation = new Donation;
 
-$fundraisers = $fundraiser->getFundraisersByUser($user_data["user_id"]);
+$fundraisers = $fundraiser->getNotExpiredFundraisers();
+
 $foundationDonations = $donation->getFoundationDonations();
 $totalFoundationDonations = $donation->getFoundationTotalDonations();
+
+/*$fundraisers = $fundraiser->getFundraisersByUser($user_data["user_id"]);
+$foundationDonations = $donation->getFoundationDonations();
+$totalFoundationDonations = $donation->getFoundationTotalDonations();*/
 
 $userShops = $shop->getShopsByUser($user_data["user_id"]);
 
@@ -129,6 +136,12 @@ $userShops = $shop->getShopsByUser($user_data["user_id"]);
                 </p>
             </div>
             <div class="col-md-4" id="money">
+                <br>
+                <span id="lingapdonation">
+                    Lingap Baste Donation
+                </span>
+                <br>
+                <hr>
                 <br>
                 <span>
                     <img id="logos2" src="images/moneyraised.png" alt="money raised logo">

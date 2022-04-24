@@ -5,7 +5,7 @@ use Xendit\Xendit;
 
 require_once("./vendor/autoload.php");
 
-$api_key = "xnd_development_C4gEaX9NiccOzVDCphMNufaqqAHAMts1OQCAC8GZQsYHBU0eG7luX0E3uHaE";
+$api_key = "xnd_development_RWG2TOZ57NBmygFujQOKTNjiKlcetzS8Dwds4RwKOxww5bodTVpF4P9gZsze";
 Xendit::setApiKey($api_key);
 
 require_once("classes/User.php");

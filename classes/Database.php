@@ -3,8 +3,8 @@
 class Database
 {
     private $HOST = "127.0.0.1"; // localhost
-    private $USER = "root";
-    private $PASSWORD = "";
+    private $USER = "funduspinas";
+    private $PASSWORD = "password";
     private $DB = "fundraise_db";
 
     public mysqli $connection;

@@ -1,6 +1,6 @@
-<div id="fundraise" class="card" style="width: 27%; height: 37%">
+<div id="fundraise" class="card" style="width: 27%;">
 
-    <img class="card-img-top" src="<?= $ROW["image"] ?>" alt="Card image cap" style="height: 125px; width: 100%;">
+    <img class="card-img-top" src="<?= $ROW["image"] ?>" alt="Card image cap" style="height: 60%; width: 100%;">
 
     <div class="card-body">
         <h5 class="card-title" style="font-weight: bolder; font-size: 15px;  text-align: center;">
